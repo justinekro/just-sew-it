@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import NewCard from "./new_project";
 
 class ProjectForm extends Component {
 	state = {
@@ -10,14 +11,15 @@ class ProjectForm extends Component {
 		const { value, success } = this.state;
 		return (
 			<div>
-				<p>this is my form </p>
+				{/*<p>this is my form </p>
 				<input
 					value={value}
 					placeholder={"votre nom"}
 					onChange={this.handleChangeText}
 				/>
 				<button onClick={this.handleSubmit}>CLICK CLICK</button>
-				{success && <div>Success !</div>}
+				{success && <div>Success !</div>}*/}
+				<NewCard />
 			</div>
 		);
 	}
