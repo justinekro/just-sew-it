@@ -38,7 +38,7 @@ const styles = {
 		'outline': 0,
 		'padding': 0,
 		'paddingLeft': 10,
-		'fontSize': 14,
+		'fontSize': 12,
 		'fontFamily': 'Raleway, sans-serif',
 		'::placeholder': {
 			color: '#ccc'

@@ -1,17 +1,35 @@
 {
-  "name": "backend",
+  "name": "just-diy-it",
   "version": "1.0.0",
-  "description": "",
+  "description": "DIY project organizer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --forceExit",
+    "server": "nodemon start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinekro/bank-account-kata.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinekro/bank-account-kata/issues"
+  },
+  "homepage": "https://github.com/justinekro/bank-account-kata#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.10"
+    "jest": "26.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.11",
+    "mongoose-unique-validator": "^2.0.3"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
+    "supertest": "^6.0.1"
   }
 }

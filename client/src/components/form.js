@@ -9,19 +9,7 @@ class ProjectForm extends Component {
 	};
 	render() {
 		const { value, success } = this.state;
-		return (
-			<div>
-				{/*<p>this is my form </p>
-				<input
-					value={value}
-					placeholder={"votre nom"}
-					onChange={this.handleChangeText}
-				/>
-				<button onClick={this.handleSubmit}>CLICK CLICK</button>
-				{success && <div>Success !</div>}*/}
-				<NewCard />
-			</div>
-		);
+		return <NewCard />;
 	}
 
 	handleChangeText = (event) => {

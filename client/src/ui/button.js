@@ -44,6 +44,7 @@ export const styles = {
 		'display': 'flex',
 		'alignItems': 'center',
 		'fontFamily': 'Raleway, sans-serif',
+		'transition': 'background-color 0.5s ease',
 		'& > p': {
 			margin: 0
 		},

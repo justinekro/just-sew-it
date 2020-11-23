@@ -5,35 +5,52 @@ class AllProjects extends Component {
 	state = {
 		projects: [],
 		loading: true,
+		error: false,
 	};
 
 	componentDidMount() {
 		axios({
 			method: "get",
-			url: "http://localhost:4000/api/projects",
-			config: { headers: { "Content-Type": "multipart/form-data" } },
+			url: "http://localhost:3000/projects",
 		})
 			.then((res) =>
 				this.setState({ projects: res.data, loading: false })
 			)
-			.catch(function (response) {
-				console.log("coucou", response);
-			});
+			.catch((err) =>
+				this.setState({ projects: [], loading: false, error: true })
+			);
 	}
 
 	render() {
-		const { projects, loading } = this.state;
+		const { projects, loading, error } = this.state;
 
 		return (
 			<div>
 				<p>All my projects</p>
-				{loading && <p>Loading...</p>}
+				{!!loading && <p>Loading...</p>}
 				{projects.map((project, index) => (
 					<div key={index}>{project.title}</div>
 				))}
+				{!!error && (
+					<p>Merci de vous connecter pour accéder à vos projets </p>
+				)}
+				<button onClick={this.handleConnect}>Créer mon compte</button>
 			</div>
 		);
 	}
+
+	handleConnect = () => {
+		axios({
+			method: "get",
+			url: "http://localhost:3000/projects",
+		})
+			.then((res) =>
+				this.setState({ projects: res.data, loading: false })
+			)
+			.catch((err) =>
+				this.setState({ projects: [], loading: false, error: true })
+			);
+	};
 }
 
 export default AllProjects;

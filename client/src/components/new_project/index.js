@@ -20,19 +20,19 @@ const initialState = {
 };
 
 const initialStateWithoutCards = {
-	isCreating: true,
-	title: "My Christmas table",
+	isCreating: false,
+	title: "Ma table de noël",
 	pictures: [
 		"v1574695492/wdgm2ugpnoicvdeynoyu.png",
 		"v1574695492/aumpz0y2jyf104xjggpp.png",
 		"v1574695492/kpgnizf2bwokstymcy8n.png",
 	],
 	link: "",
-	todoTitle: "My Todo Title",
+	todoTitle: "Nom de ma TODO",
 	pendingTask: "",
 	todoList: [
-		{ name: "This task is done", done: true },
-		{ name: "This task is not done yet", done: false },
+		{ name: "Cette tâche est finie", done: true },
+		{ name: "Cette tâche n'est pas finie", done: false },
 	],
 };
 
@@ -52,105 +52,146 @@ export default class NewCard extends Component {
 		const canSubmitForm = this.checkSubmissionForm();
 
 		return (
-			<div css={[styles.add, styles.withMinWidth]}>
+			<div css={styles.add}>
 				{!isCreating ? (
 					<Button
-						text={"Create an Amazing project"}
+						text={"Nouveau projet"}
 						onClick={() => this.setState({ isCreating: true })}
 						icon={faPlusCircle}
 						isReversed
 					/>
 				) : (
-					<div css={[isCreating && styles.overlay]}>
-						<div css={styles.formContainer}>
-							<div css={styles.formHeader}>
-								Create your first DIY project
-								{isCreating && (
-									<div css={styles.closeIcon}>
-										<FontAwesomeIcon
-											icon={faTimesCircle}
-											onClick={() =>
-												this.setState(initialState)
-											}
-											color={"grey"}
-										/>
-									</div>
-								)}
-							</div>
-							<div css={styles.form}>
-								<div css={styles.inputTitle}>Project title</div>
-								<Input
-									placeHolder="Write here your project title"
-									onChange={(title) =>
-										this.setState({ title })
-									}
-									style={styles.input}
-									value={title}
-								/>
-								<div css={styles.inputTitle}>Link</div>
-								{/* //TODO separate links with , to add several */}
-								<Input
-									placeHolder="Copy paste here any relevant link"
-									onChange={(link) => this.setState({ link })}
-									style={styles.input}
-									value={link}
-								/>
-								<div css={styles.inputTitle}>Todo List</div>
+					<div css={styles.formContainer}>
+						<div css={styles.formHeader}>
+							Créez votre futur projet !
+							{isCreating && (
+								<div css={styles.closeIcon}>
+									<FontAwesomeIcon
+										icon={faTimesCircle}
+										onClick={() =>
+											this.setState(
+												initialStateWithoutCards
+											)
+										}
+										color={"grey"}
+									/>
+								</div>
+							)}
+						</div>
+						<div css={styles.form}>
+							<div css={styles.inputTitle}>Nom du projet</div>
+							<Input
+								placeHolder="Le titre de votre prochain projet"
+								onChange={(title) => this.setState({ title })}
+								style={styles.input}
+								value={title}
+							/>
+							<div css={styles.inputTitle}>Ajouter</div>
+							<div
+								css={{
+									display: "flex",
+									flexWrap: "wrap",
+									justifyContent: "space-between",
+								}}
+							>
 								<div
-									css={[
-										todoTitle.length > 0 &&
-											styles.todoContainer,
-									]}
+									css={{
+										height: 40,
+										width: "30%",
+										backgroundColor: "pink",
+									}}
 								>
-									<Input
-										placeHolder="Fancy a Todo List? create it here!"
-										onChange={(t) =>
-											this.handleTodoTitleChange(t)
-										}
-										style={[
-											styles.fullWidth,
-											todoTitle.length > 0
-												? { border: "none" }
-												: { marginBottom: 15 },
-										]}
-										value={todoTitle}
-									/>
-									<TodoList
-										todoTitle={todoTitle}
-										todoList={todoList}
-										handleTaskChange={this.handleTaskChange}
-										removeFromList={this.removeFromList}
-										addTask={this.addTask}
-										onInputChange={(pendingTask) =>
-											this.setState({ pendingTask })
-										}
-										pendingTask={pendingTask}
-									/>
+									Un lien
 								</div>
-								<div css={styles.inputTitle}>
-									Add pictures to your project
+								<div
+									css={{
+										height: 40,
+										width: "30%",
+										backgroundColor: "pink",
+									}}
+								>
+									Des photos
 								</div>
-								{/*<PicturesModule
+								<div
+									css={{
+										height: 40,
+										width: "30%",
+										backgroundColor: "pink",
+									}}
+								>
+									Une liste de courses
+								</div>
+								<div
+									css={{
+										height: 40,
+										width: "30%",
+										backgroundColor: "pink",
+									}}
+								>
+									Une todo pour le projet
+								</div>
+							</div>
+							<div css={styles.inputTitle}>Liens</div>
+							{/* //TODO separate links with , to add several */}
+							<Input
+								placeHolder="Un lien en rapport avec le projet"
+								onChange={(link) => this.setState({ link })}
+								style={styles.input}
+								value={link}
+							/>
+							<div css={styles.inputTitle}>Todo List</div>
+							<div
+								css={[
+									todoTitle.length > 0 &&
+										styles.todoContainer,
+								]}
+							>
+								<Input
+									placeHolder="Besoin d'une Todo List ? C'est ici !"
+									onChange={(t) =>
+										this.handleTodoTitleChange(t)
+									}
+									style={[
+										styles.fullWidth,
+										todoTitle.length > 0
+											? { border: "none" }
+											: { marginBottom: 15 },
+									]}
+									value={todoTitle}
+								/>
+								<TodoList
+									todoTitle={todoTitle}
+									todoList={todoList}
+									handleTaskChange={this.handleTaskChange}
+									removeFromList={this.removeFromList}
+									addTask={this.addTask}
+									onInputChange={(pendingTask) =>
+										this.setState({ pendingTask })
+									}
+									pendingTask={pendingTask}
+								/>
+							</div>
+							<div css={styles.inputTitle}>
+								Ajouter des photos au projet
+							</div>
+							{/*<PicturesModule
 									pictures={pictures}
 									deletePicture={this.deletePicture}
 									updatePictures={this.updatePictures}
 								/>*/}
-								{canSubmitForm && (
-									<div css={styles.actionContainer}>
-										<Button
-											text={"Save and start creating"}
-											onClick={this.submit}
-											style={{ width: "100%" }}
-										>
-											<div css={{ marginLeft: 5 }}>
-												<FontAwesomeIcon
-													icon={faHeart}
-												/>
-											</div>
-										</Button>
-									</div>
-								)}
-							</div>
+							{canSubmitForm && (
+								<div css={styles.actionContainer}>
+									<Button
+										text={"Sauvegarder"}
+										onClick={this.submit}
+										style={{ width: "100%" }}
+									>
+										<div css={{ marginLeft: 5 }}>
+											<FontAwesomeIcon icon={faHeart} />
+										</div>
+									</Button>
+								</div>
+							)}
 						</div>
 					</div>
 				)}
@@ -219,10 +260,8 @@ export default class NewCard extends Component {
 }
 
 const styles = {
-	withMinWidth: {
-		margin: "auto",
-	},
 	add: {
+		width: "50%",
 		border: "1px dashed grey",
 		minHeight: 70,
 		borderRadius: 4,
@@ -230,7 +269,6 @@ const styles = {
 		justifyContent: "center",
 		alignItems: "center",
 		margin: "auto",
-		width: "calc(100% - 15px)",
 	},
 	form: {
 		padding: 15,
@@ -305,18 +343,4 @@ const styles = {
 		height: "100%",
 		borderRadius: 4,
 	},
-	// overlay: {
-	// 	display: "none",
-	// 	[breakpoints.tabletQuery]: {
-	// 		display: "block",
-	// 		backgroundColor: "black",
-	// 		height: "100%",
-	// 		width: "100%",
-	// 		position: "absolute",
-	// 		zIndex: 1000,
-	// 		top: 0,
-	// 		left: 0,
-	// 		opacity: 0.7,
-	// 	},
-	// },
 };
