@@ -1,6 +1,6 @@
-const User = require("../models/user");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.signUp = async (req, res, next) => {
 	try {
@@ -8,15 +8,13 @@ exports.signUp = async (req, res, next) => {
 		const user = new User({
 			mail: req.body.mail,
 			name: req.body.name,
-			password: hash,
+			password: hash
 		});
-		console.log(user)
 		const response = await user.save();
 		return res.status(200).json(response);
 	} catch (error) {
-		console.log(error)
 		return res.status(400).json({
-			error: "something went wrong when creating user!",
+			error: 'Une erreur est survenue, merci de réessayer !'
 		});
 	}
 };
@@ -30,25 +28,24 @@ exports.logIn = async (req, res, next) => {
 				req.body.password,
 				user.password
 			);
-			console.log("hasValidPassword", hasValidPassword)
 			if (!!hasValidPassword) {
 				return res.status(200).json({
 					userId: user._id,
-					token: jwt.sign(
-						{ userId: user._id },
-						"RANDOM_TOKEN_SECRET",
-						{ expiresIn: "24h" }
-					),
+					token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
+						expiresIn: '24h'
+					})
 				});
 			} else {
-				return res.status(401).json({ error: "Wrong password" });
+				return res.status(401).json({ error: 'Mot de passe erroné' });
 			}
 		} else {
-			return res.status(401).json({ error: "User not found" });
+			return res.status(401).json({
+				error: 'Cette adresse mail ne correspond à aucun utilisateur'
+			});
 		}
 	} catch (error) {
 		return res.status(500).json({
-			error: "something went wrong",
+			error: 'Une erreur est survenue, merci de réessayer !'
 		});
 	}
 };

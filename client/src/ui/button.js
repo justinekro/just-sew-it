@@ -11,7 +11,8 @@ export default function Button({
 	textStyle,
 	type,
 	icon,
-	children
+	children,
+	...props
 }) {
 	return (
 		<button
@@ -24,6 +25,7 @@ export default function Button({
 			]}
 			onClick={onClick}
 			type={type}
+			{...props}
 		>
 			{!!icon && <FontAwesomeIcon icon={icon} />}
 			<p style={textStyle}>{text.toUpperCase()}</p>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import colors from './colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+// TODO check https://codepen.io/Don-m/pen/mmgyQG
 export default function Input({
 	placeHolder,
 	value,
@@ -12,10 +13,11 @@ export default function Input({
 	icon,
 	error
 }) {
-	const [isFocused, setIsFocused] = useState(false);
+	const [isHidden, setIsHidden] = useState(true);
 	return (
 		<div css={{ position: 'relative' }}>
 			<input
+				type={isHidden ? 'password' : 'input'}
 				onChange={e => {
 					onChange(e.target.value);
 				}}
@@ -28,18 +30,14 @@ export default function Input({
 					!!error && { border: '2px solid red' }
 				]}
 				name={name}
-				onFocus={() => setIsFocused(true)}
-				onBlur={() => setIsFocused(false)}
 			/>
+
 			<FontAwesomeIcon
-				icon={faTimesCircle}
-				onClick={() => onChange('')}
+				icon={isHidden ? faEye : faEyeSlash}
+				onClick={() => setIsHidden(!isHidden)}
 				style={{
 					width: 20,
-					height: 20,
-					borderRadius: 20,
-					color: isFocused ? 'lightGrey' : 'white',
-					transition: 'color 0.7s ease',
+					color: 'lightGrey',
 					position: 'absolute',
 					display: 'block',
 					top: 11,

@@ -1,4 +1,5 @@
 import React from 'react';
+import breakpoints from './breakpoints';
 import colors from './colors';
 
 export default function Link({ text, onClick, style }) {
@@ -11,28 +12,30 @@ export default function Link({ text, onClick, style }) {
 
 const styles = {
 	link: {
-		'width': 'fit-content',
-		'cursor': 'pointer',
-		'fontSize': 12,
-		'fontFamily': 'Raleway, sans-serif',
-		'color': colors.pink,
-		'textDecoration': 'none',
-		'transition': 'color 0.5s ease',
-
-		':hover': {
-			color: colors.lightPink
-		},
-		'&::after': {
-			content: `''`,
-			width: '0px',
-			height: '1px',
-			display: 'block',
-			backgroundColor: colors.lightPink,
-			transition: 'width 0.5s ease, background-color 0.5s ease'
-		},
-		'&:hover::after': {
-			width: '100%',
-			backgroundColor: colors.lightPink
+		width: 'fit-content',
+		cursor: 'pointer',
+		fontSize: 12,
+		fontFamily: 'Raleway, sans-serif',
+		color: colors.pink,
+		textDecoration: 'underline',
+		transition: 'color 0.5s ease',
+		[breakpoints.desktopQuery]: {
+			'textDecoration': 'none',
+			':hover': {
+				color: colors.lightPink
+			},
+			'&::after': {
+				content: `''`,
+				width: '0px',
+				height: '1px',
+				display: 'block',
+				backgroundColor: colors.lightPink,
+				transition: 'width 0.5s ease, background-color 0.5s ease'
+			},
+			'&:hover::after': {
+				width: '100%',
+				backgroundColor: colors.lightPink
+			}
 		}
 	}
 };

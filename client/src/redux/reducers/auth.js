@@ -1,11 +1,12 @@
-import { USER_LOGGED_IN, USER_SIGNED_UP } from '../actions';
+import { USER_LOGGED_IN, USER_SIGNED_UP, AUTH_ERROR } from '../actions';
 
 const initialState = {
 	connected: false,
 	name: null,
 	mail: null,
 	token: null,
-	wasJustCreated: false
+	wasJustCreated: false,
+	error: null
 };
 
 export default function (state = initialState, action) {
@@ -30,7 +31,13 @@ export default function (state = initialState, action) {
 				connected: true,
 				wasJustCreated
 			};
-			// do something
+		}
+		case AUTH_ERROR: {
+			const { error } = action.payload;
+			return {
+				...state,
+				error
+			};
 		}
 		default:
 			return state;

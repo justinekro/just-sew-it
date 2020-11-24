@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const USER_SIGNED_UP = 'USER_SIGNED_UP';
 export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export const AUTH_ERROR = 'AUTH_ERROR';
 
 export const userSignedUp = ({
 	name,
@@ -28,8 +29,14 @@ export const userLoggedIn = ({ userId, token, mail }) => ({
 	}
 });
 
+export const authError = ({ error }) => ({
+	type: AUTH_ERROR,
+	payload: {
+		error
+	}
+});
+
 export const signUpUser = ({ name, mail, password }) => {
-	// And then creates and returns the async thunk function:
 	return dispatch => {
 		return axios
 			.post('http://localhost:3000/auth/signup', { name, mail, password })
@@ -41,19 +48,30 @@ export const signUpUser = ({ name, mail, password }) => {
 						dispatch(
 							userSignedUp({ userId, token, mail, name, wasJustCreated: true })
 						);
+					})
+					.catch(e => {
+						const error = e.response.data.error;
+						dispatch(authError({ error }));
 					});
+			})
+			.catch(e => {
+				const error = e.response.data.error;
+				dispatch(authError({ error }));
 			});
 	};
 };
 
 export const logInUser = ({ password, mail }) => {
-	// And then creates and returns the async thunk function:
 	return dispatch => {
 		return axios
 			.post('http://localhost:3000/auth/login', { mail, password })
 			.then(r => {
 				const { userId, token } = r.data;
 				dispatch(userLoggedIn({ userId, token, mail, wasJustCreated: true }));
+			})
+			.catch(e => {
+				const error = e.response.data.error;
+				dispatch(authError({ error }));
 			});
 	};
 };

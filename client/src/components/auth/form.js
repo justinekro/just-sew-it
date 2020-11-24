@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signUpUser } from '../../redux/actions';
-import { Button, Input, Link, breakpoints } from '../../ui';
+import {
+	Button,
+	Input,
+	Link,
+	breakpoints,
+	colors,
+	PasswordInput
+} from '../../ui';
 
 class Auth extends Component {
 	render() {
@@ -14,17 +21,22 @@ class Auth extends Component {
 			setMail,
 			setPassword,
 			handleSubmit,
-			handleChangeState
+			handleChangeState,
+			error
 		} = this.props;
 		return (
 			<div css={styles.page}>
 				<div css={styles.container}>
+					<div css={styles.title}>
+						{!!isCreatingUser ? 'Je crée mon compte' : 'Je me connecte'}
+					</div>
 					{!!isCreatingUser && (
 						<Input
 							placeHolder={'Prénom'}
 							value={name}
 							onChange={setName}
 							style={styles.input}
+							error={error.name}
 						/>
 					)}
 					<Input
@@ -32,12 +44,14 @@ class Auth extends Component {
 						value={mail}
 						onChange={setMail}
 						style={styles.input}
+						error={error.mail}
 					/>
-					<Input
+					<PasswordInput
 						placeHolder={'Mot de passe'}
 						value={password}
 						onChange={setPassword}
 						style={styles.input}
+						error={error.password}
 					/>
 					<Button onClick={handleSubmit}>
 						{isCreatingUser ? 'Créer mon compte' : 'Me connecter'}
@@ -80,6 +94,11 @@ const styles = {
 		}
 	},
 	input: {
-		marginBottom: 10
+		marginBottom: 15
+	},
+	title: {
+		marginBottom: 10,
+		color: colors.darkBlue,
+		fontWeight: 900
 	}
 };

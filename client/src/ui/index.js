@@ -8,3 +8,4 @@ export { default as Textarea } from './textarea';
 export { default as Loader } from './loader';
 export { default as Header } from './header';
 export { default as Link } from './link';
+export { default as PasswordInput } from './password_input';
